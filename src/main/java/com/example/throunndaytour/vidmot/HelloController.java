@@ -1,4 +1,4 @@
-package com.example.throunndaytour;
+package com.example.throunndaytour.vidmot;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
