@@ -1,6 +1,9 @@
 module com.example.throunndaytour {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
+    requires java.datatransfer;
+    requires org.xerial.sqlitejdbc;
 
 
     opens com.example.throunndaytour to javafx.fxml;
