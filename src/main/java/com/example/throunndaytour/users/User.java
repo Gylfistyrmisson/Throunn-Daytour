@@ -14,4 +14,7 @@ public class User {
         this.kennitala = kennitala;
         this.password = password;
     }
+    public static String getEmail(User user) {
+        return user.email;
+    }
 }
