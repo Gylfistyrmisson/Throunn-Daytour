@@ -28,14 +28,6 @@ public class LoginController {
     @FXML
     private Label welcomeText;
 
-    @FXML
-    protected void onHelloButtonClick() {
-        //User user = DatabaseDaytour.getUser(1000);
-        //assert user != null;
-        //System.out.println(getEmail(user));
-        boolean hallo = DatabaseDaytour.createUser("Haraldur", "halli@gmail.com", "190398", "password123");
-        System.out.println(hallo);
-    }
 
     @FXML
     public void handleSubmitButtonAction() {
@@ -45,22 +37,26 @@ public class LoginController {
 
         if (user != null) {
             actionTarget.setText("Login successful!");
-            // Færa yfir á nýtt view....
+            changeView("dayTours-view.fxml");
         } else {
             actionTarget.setText("Login failed. Invalid email or password.");
         }
     }
 
     public void handleRegisterButtonAction(ActionEvent actionEvent) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(DayTourApplication.class.getResource("register-view.fxml"));
-            Parent registerView = fxmlLoader.load();
+        changeView("register-view.fxml");
+    }
 
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(registerView));
+    private void changeView (String fxml) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(DayTourApplication.class.getResource(fxml));
+            Parent newView = fxmlLoader.load();
+            Stage stage = (Stage) emailField.getScene().getWindow(); // Assuming emailField is not null and has been initialized by FXML loader
+            stage.setScene(new Scene(newView));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            actionTarget.setText("Error loading view: " + fxml);
         }
     }
 }

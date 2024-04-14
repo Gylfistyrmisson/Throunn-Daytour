@@ -44,4 +44,24 @@ public class DayTour {
         reviews = fylkinytt;
         reviewCNT++;
     }
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public int[] getDate() {
+        return date;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
 }
