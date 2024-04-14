@@ -21,7 +21,7 @@
   - [ ] customer fields.
 - [ ] Admin view
   - [ ] css / útlit?    
-  - [ ] búa til túr
-  - [ ] eyða túr
+  - [X] búa til túr
+  - [X] eyða túr
   - [X] breyta túr
-  - [ ] Tengja við database.
+  - [ ] Tengja admin methods við database.
