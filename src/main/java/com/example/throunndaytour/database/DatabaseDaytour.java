@@ -11,7 +11,6 @@ public class DatabaseDaytour {
         try{
             conn = DriverManager.getConnection("jdbc:sqlite:src/main/java/com/example/throunndaytour/database/daytour.db");
             conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-            System.out.println("yesssssie!!!!!");
         }catch(SQLException e){
             System.err.println(e.getMessage());
         }
@@ -19,45 +18,67 @@ public class DatabaseDaytour {
     }
 
     //Býr til nýjan user(kannski að klasinn skili id?)
-    public static void createUser(String name,String email, String kennitala, String password) {
+    public static boolean createUser(String name,String email, String kennitala, String password) {
         try {
-            //Fá value úr idGenerator töflunni
-            DatabaseDaytour.getConnection();
-            String q1 = "SELECT value FROM idGenerator";
-            PreparedStatement iddd = conn.prepareStatement(q1);
-            ResultSet idd = iddd.executeQuery();
-            int id = idd.getInt("value");
+            //Fá connection
+            getConnection();
 
-            //Updatea value í idGenerator töflunni
-            String q2 = "UPDATE idGenerator SET value =" + (id + 1) + ");";
-            PreparedStatement update = conn.prepareStatement(q2);
-            update.executeQuery();
+            //Checka hvort það sé user með sama email
+            String til = "SELECT * FROM user WHERE email == '" + email + "';";
+            PreparedStatement t = conn.prepareStatement(til);
+            ResultSet till = t.executeQuery();
 
-            //Búa til nýjan user í user töflunni
-            String q3 = "INSERT INTO user (name,id,email,kennitala,password) VALUES (" + name + "," + id + "," + email + "," + kennitala + "," + password + ");";
-            PreparedStatement c = conn.prepareStatement(q3);
-            c.executeQuery();
+            if (!till.next()) {
+                //Fá value úr idGenerator töflunni
 
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new RuntimeException(e);
-        }
+                String q1 = "SELECT value FROM idGenerator";
+                PreparedStatement iddd = conn.prepareStatement(q1);
+                ResultSet idd = iddd.executeQuery();
+                int id = idd.getInt("value");
+
+                //Updatea value í idGenerator töflunni
+                String q2 = "UPDATE idGenerator SET value =" + (id + 1) + ";";
+                PreparedStatement update = conn.prepareStatement(q2);
+                update.executeUpdate();
+
+                //Búa til nýjan user í user töflunni
+                String q3 = "INSERT INTO user (name,id,email,kennitala,password) VALUES ('" + name + "'," + id + ",'" + email + "','" + kennitala + "','" + password + "');";
+                PreparedStatement c = conn.prepareStatement(q3);
+                c.executeUpdate();
+
+                //Skilar true ef það var hægt að búa til user annars skilar false
+                System.out.println("Success");
+                return true;
+                }
+            else return false;
+            } catch(ClassNotFoundException | SQLException e){
+                throw new RuntimeException(e);
+            }
     }
 
     //Skilar user með id
-    public User getUser(int userid) {
+    public static User getUser(int userid) {
         try {
             DatabaseDaytour.getConnection();
             String q = "SELECT * FROM user WHERE id == " + userid + ";";
+            System.out.println(q);
             PreparedStatement q1 = conn.prepareStatement(q);
-            ResultSet q2 = q1.getResultSet();
+            ResultSet q2 = q1.executeQuery();
 
-            String name = q2.getString("name");
-            int id = q2.getInt("id");
-            String email = q2.getString("email");
-            String kennitala = q2.getString("kennitala");
-            String password = q2.getString("password");
-            User user = new User(id,name,email,kennitala,password);
-            return user;
+            //Ef ekkert finnst þá skila null
+            if (!q2.next()) {
+                return null;
+            }
+            //Annars skila user
+            else {
+                String name = q2.getString("name");
+                int id = q2.getInt("id");
+                String email = q2.getString("email");
+                String kennitala = q2.getString("kennitala");
+                String password = q2.getString("password");
+                User user = new User(id, name, email, kennitala, password);
+                return user;
+            }
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
