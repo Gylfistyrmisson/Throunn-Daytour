@@ -22,6 +22,10 @@ public class DayTour {
         this.hotelPickup = hotelPickup;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
     public void addCustomer(int customerID) {
         int fylkilengd = customers.length;
         int[] fylkinytt = new int[fylkilengd+1];

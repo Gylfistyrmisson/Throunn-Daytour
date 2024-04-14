@@ -15,4 +15,12 @@ public class Admin extends User {
     public static void createTour(DayTour dayTour) {
         DayTourController.addDayTour(dayTour);
     }
+
+    public static void deleteTour(DayTour dayTour) {
+        DayTourController.removeDayTour(dayTour.getId());
+    }
+
+    public static void editTour(DayTour dayTour) {
+
+    }
 }

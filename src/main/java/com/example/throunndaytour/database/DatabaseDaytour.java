@@ -123,4 +123,7 @@ public class DatabaseDaytour {
 
     public static void createDayTour(DayTour dayTour) {
     }
+
+    public static void removeDayTour(int id) {
+    }
 }

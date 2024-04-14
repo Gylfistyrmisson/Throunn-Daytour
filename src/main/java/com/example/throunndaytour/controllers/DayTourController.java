@@ -7,4 +7,8 @@ public class DayTourController {
     public static void addDayTour(DayTour dayTour) {
         DatabaseDaytour.createDayTour(dayTour);
     }
+
+    public static void removeDayTour(int ID) {
+        DatabaseDaytour.removeDayTour(ID);
+    }
 }
