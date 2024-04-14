@@ -246,4 +246,7 @@ public class DatabaseDaytour {
             throw new RuntimeException(e);
         }
     }
+
+    public static void createDayTour(DayTour dayTour) {
+    }
 }
