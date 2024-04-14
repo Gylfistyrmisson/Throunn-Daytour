@@ -1,4 +1,5 @@
 package com.example.throunndaytour.database;
+import com.example.throunndaytour.hlutir.DayTour;
 import com.example.throunndaytour.users.User;
 
 import java.sql.*;
@@ -118,5 +119,8 @@ public class DatabaseDaytour {
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void createDayTour(DayTour dayTour) {
     }
 }
