@@ -1,5 +1,5 @@
 package com.example.throunndaytour.controllers;
-
+import com.example.throunndaytour.database.DatabaseDaytour;
 import com.example.throunndaytour.hlutir.DayTour;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +21,11 @@ public class DayTourController {
     public ListView<DayTour> listViewDayTours;
 
     private ObservableList<DayTour> dayTours = FXCollections.observableArrayList();
+
+
+    public static void addDayTour(DayTour dayTour) {
+        DatabaseDaytour.createDayTour(dayTour);
+    }
 
     @FXML
     public void initialize() {
@@ -74,5 +79,6 @@ public class DayTourController {
         Scene scene = new Scene(layout, 300, 200);
         detailsStage.setScene(scene);
         detailsStage.showAndWait(); // Show and wait for it to be closed before returning to the main application
+
     }
 }
