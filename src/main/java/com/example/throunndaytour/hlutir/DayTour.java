@@ -6,42 +6,44 @@ public class DayTour {
     private String name;
     private int price;
     private int duration;
-    private Date date;
+    private int[] date;
     private String location;
-    private boolean hotelPickup;
+    private int customerCNT;
     private int[] customers = {};
-    private Review[] reviews = {};
+    private int reviewCNT;
+    private int[] reviews = {};
 
-    public DayTour(int id, String name, int price, int duration, Date date, String location, boolean hotelPickup) {
+    public DayTour(int id, String name, int price, int duration, int[] date, String location,int customerCNT,int[] customers,int reviewCNT,int[] reviews) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.duration = duration;
         this.date = date;
         this.location = location;
-        this.hotelPickup = hotelPickup;
+        this.customers = customers;
+        this.reviews = reviews;
+        this.customerCNT = customerCNT;
+        this.reviewCNT = reviewCNT;
+
     }
 
     public void addCustomer(int customerID) {
         int fylkilengd = customers.length;
-        int[] fylkinytt = new int[fylkilengd + 1];
-        for (int i = 0; i < fylkilengd; i++) {
-            fylkinytt[i] = customers[i];
-        }
+        int[] fylkinytt = new int[fylkilengd+1];
+        System.arraycopy(customers, 0, fylkinytt, 0, fylkilengd);
         fylkinytt[fylkilengd] = customerID;
         customers = fylkinytt;
+        customerCNT++;
     }
 
-    public void addReview(Review review) {
+    public void addReview(int reviewID) {
         int fylkilengd = reviews.length;
-        Review[] fylkinytt = new Review[fylkilengd + 1];
-        for (int i = 0; i < fylkilengd; i++) {
-            fylkinytt[i] = reviews[i];
-        }
-        fylkinytt[fylkilengd] = review;
+        int[] fylkinytt = new int[fylkilengd+1];
+        System.arraycopy(reviews, 0, fylkinytt, 0, fylkilengd);
+        fylkinytt[fylkilengd] = reviewID;
         reviews = fylkinytt;
+        reviewCNT++;
     }
-
     public String getName() {
         return name;
     }
@@ -54,7 +56,7 @@ public class DayTour {
         return duration;
     }
 
-    public Date getDate() {
+    public int[] getDate() {
         return date;
     }
 
