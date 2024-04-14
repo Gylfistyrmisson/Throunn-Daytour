@@ -33,7 +33,10 @@ public class DayTourController {
         for (int i = 1; i <= 20; i++) {
             String tourName = "Tour " + i;
             int price = 100 + i; // Incrementing price for variety
-            DayTour tour = new DayTour(i, tourName, price, 8, new Date(), "Reykjavik", i % 2 == 0);
+            int[] date = {2024, 4, i}; // Date array representing year, month, day
+            int[] customers = {1, 2, 3}; // Example customers array
+            int[] reviews = {4, 5, 6}; // Example reviews array
+            DayTour tour = new DayTour(i, tourName, price, 8, date, "Reykjavik", customers.length, customers, reviews.length, reviews);
             dayTours.add(tour);
         }
 

@@ -28,14 +28,6 @@ public class LoginController {
     @FXML
     private Label welcomeText;
 
-    @FXML
-    protected void onHelloButtonClick() {
-        //User user = DatabaseDaytour.getUser(1000);
-        //assert user != null;
-        //System.out.println(getEmail(user));
-        boolean hallo = DatabaseDaytour.createUser("Haraldur", "halli@gmail.com", "190398", "password123");
-        System.out.println(hallo);
-    }
 
     @FXML
     public void handleSubmitButtonAction() {
