@@ -84,6 +84,28 @@ public class DatabaseDaytour {
         }
     }
 
+    public static User authenticateUser(String email, String password) {
+        try {
+            getConnection();
+            String query = "SELECT * FROM user WHERE email = ? AND password = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, email);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String kennitala = rs.getString("kennitala");
+                User user = new User(id, name, email, kennitala, password);
+                return user;
+            }
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     //Þessi er til sýnis
     public static void hallo() {
