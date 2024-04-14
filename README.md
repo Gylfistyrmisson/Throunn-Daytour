@@ -24,4 +24,4 @@
   - [ ] búa til túr
   - [ ] eyða túr
   - [X] breyta túr
-- [ ] Fylla inn í daytour methods í databasedaytour klasanum.
+  - [ ] Tengja við database.
