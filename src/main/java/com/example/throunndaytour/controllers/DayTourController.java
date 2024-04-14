@@ -27,6 +27,10 @@ public class DayTourController {
         DatabaseDaytour.createDayTour(dayTour);
     }
 
+    public static void removeDayTour(int ID) {
+        DatabaseDaytour.removeDayTour(ID);
+    }
+
     @FXML
     public void initialize() {
         // Creating a mock DayTour for testing

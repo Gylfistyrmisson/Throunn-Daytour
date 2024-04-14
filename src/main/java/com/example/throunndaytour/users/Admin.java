@@ -42,7 +42,7 @@ public class Admin extends User {
         dayTour.setDuration(duration);
     }
 
-    public static void editTourDate(DayTour dayTour, Date date) {
+    public static void editTourDate(DayTour dayTour, int[] date) {
         dayTour.setDate(date);
     }
 
@@ -50,7 +50,4 @@ public class Admin extends User {
         dayTour.setLocation(location);
     }
 
-    public static void editTourHotelPickup(DayTour dayTour, boolean hotelPickup) {
-        dayTour.setHotelPickup(hotelPickup);
-    }
 }

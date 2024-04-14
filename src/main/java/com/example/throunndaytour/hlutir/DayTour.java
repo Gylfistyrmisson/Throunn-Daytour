@@ -47,7 +47,7 @@ public class DayTour {
         this.duration = duration;
     }
 
-    public void setDate(Date date) {
+    public void setDate(int[] date) {
         this.date = date;
     }
 
@@ -55,9 +55,6 @@ public class DayTour {
         this.location = location;
     }
 
-    public void setHotelPickup(boolean hotelPickup) {
-        this.hotelPickup = hotelPickup;
-    }
 
 
     public void addCustomer(int customerID) {
