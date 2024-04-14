@@ -1,0 +1,17 @@
+-----TODO-----
+- [X] Setja upp database og tengingar.
+- [ ] Login view 
+  - [ ] Admin login 
+  - [ ] User Login ?
+- [ ] DayTourS view, birta alla túra.
+  - [ ] filters / search
+- [ ] DayTour view, fyrir stakt daytour?
+  - [ ] reviews
+  - [ ] link á bókanir
+  - [ ] detailed upplýsingar
+- [ ] Booking view
+  - [ ] customer fields.
+- [ ] Admin view
+  - [ ] búa til
+  - [ ] eyða
+  - [ ] breyta  
