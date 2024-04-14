@@ -1,17 +1,26 @@
 -----TODO-----
 - [X] Setja upp database og tengingar.
-- [ ] Login view 
-  - [ ] Admin login 
-  - [ ] User Login ?
+- [X] Login view
+  - [ ] css / útlit? 
+  - [X] Login, checkar hvort notandi sé til í db.
+  - [X] Register takki, færir yfir á register-view
+- [X] Register view
+  - [ ] css / útlit?
+  - [ ] Tengja við database
+  - [ ] færa yfir á dayTours view eftir register  
 - [ ] DayTourS view, birta alla túra.
+  - [ ] css / útlit? 
   - [ ] filters / search
 - [ ] DayTour view, fyrir stakt daytour?
+  - [ ] css / útlit? 
   - [ ] reviews
   - [ ] link á bókanir
   - [ ] detailed upplýsingar
 - [ ] Booking view
+  - [ ] css / útlit? 
   - [ ] customer fields.
 - [ ] Admin view
-  - [ ] búa til
-  - [ ] eyða
-  - [ ] breyta  
+  - [ ] css / útlit?    
+  - [ ] búa til túr
+  - [ ] eyða túr
+  - [ ] breyta túr
