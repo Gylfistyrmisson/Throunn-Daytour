@@ -12,7 +12,7 @@ public class DayTourApplication extends Application {
         DatabaseDaytour.getConnection();
         FXMLLoader fxmlLoader = new FXMLLoader(DayTourApplication.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        stage.setTitle("Day Tours");
         stage.setScene(scene);
         stage.show();
     }

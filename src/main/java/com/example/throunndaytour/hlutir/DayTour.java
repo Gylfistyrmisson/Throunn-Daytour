@@ -24,7 +24,7 @@ public class DayTour {
 
     public void addCustomer(int customerID) {
         int fylkilengd = customers.length;
-        int[] fylkinytt = new int[fylkilengd+1];
+        int[] fylkinytt = new int[fylkilengd + 1];
         for (int i = 0; i < fylkilengd; i++) {
             fylkinytt[i] = customers[i];
         }
@@ -34,11 +34,32 @@ public class DayTour {
 
     public void addReview(Review review) {
         int fylkilengd = reviews.length;
-        Review[] fylkinytt = new Review[fylkilengd+1];
+        Review[] fylkinytt = new Review[fylkilengd + 1];
         for (int i = 0; i < fylkilengd; i++) {
             fylkinytt[i] = reviews[i];
         }
         fylkinytt[fylkilengd] = review;
         reviews = fylkinytt;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
 }
