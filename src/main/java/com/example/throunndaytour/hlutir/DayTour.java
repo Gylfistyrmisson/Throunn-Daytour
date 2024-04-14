@@ -26,6 +26,35 @@ public class DayTour {
         return this.id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setHotelPickup(boolean hotelPickup) {
+        this.hotelPickup = hotelPickup;
+    }
+
+
     public void addCustomer(int customerID) {
         int fylkilengd = customers.length;
         int[] fylkinytt = new int[fylkilengd+1];
