@@ -2,6 +2,7 @@ package com.example.throunndaytour.vidmot;
 
 import com.example.throunndaytour.DayTourApplication;
 import com.example.throunndaytour.database.DatabaseDaytour;
+import com.example.throunndaytour.users.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,8 +43,8 @@ public class RegisterController {
         }
 
         try {
-            boolean success = DatabaseDaytour.createUser(name, email, kennitala, password);
-            if (success) {
+            User user = DatabaseDaytour.createUser(name, email, kennitala, password);
+            if (user != null) {
                 messageField.setText("Nýskráning tókst!");
                 clearForm();
             } else {
