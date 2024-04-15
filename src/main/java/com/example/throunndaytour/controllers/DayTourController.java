@@ -16,11 +16,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
-
 
 public class DayTourController {
     @FXML
@@ -36,9 +34,11 @@ public class DayTourController {
     public static void addDayTour(DayTour dayTour) {
         createDayTour(dayTour);
 
-        public static void createDayTour (String Name,int Price, int Duration, int[] Date, String Location){
-            DatabaseDaytour.createDayTour(Name, Price, Duration, Date, Location);
-        }
+
+    public static void createDayTour(String Name,int Price,int Duration,int[] Date,String Location) {
+        DatabaseDaytour.createDayTour(Name,Price,Duration,Date,Location);
+    }
+
 */
     /**
      * Upphafstillir:
