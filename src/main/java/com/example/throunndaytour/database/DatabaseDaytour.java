@@ -217,13 +217,14 @@ public class DatabaseDaytour {
     public static DayTour[] searchDayTour(String search) {
         try {
             getConnection();
-            //Finna hversu margar raðir eru
+            // Find out how many rows there are
             String c = "SELECT COUNT(*) FROM daytour WHERE name LIKE '%" + search + "%';";
             PreparedStatement cc = conn.prepareStatement(c);
             ResultSet ccc = cc.executeQuery();
+            ccc.next(); // Move to the first row to retrieve the count
             long lengd = ccc.getLong(1);
 
-            //Fara gegnum daytour töfluna og finna þar sem search er í nafninu, skilar svo fylki af daytours
+            // Go through the daytour table and find where search is in the name, then return an array of daytours
             String q = "SELECT * FROM daytour WHERE name LIKE '%" + search + "%';";
             PreparedStatement smt = conn.prepareStatement(q);
             ResultSet rs = smt.executeQuery();
@@ -234,15 +235,19 @@ public class DatabaseDaytour {
                 String name = rs.getString("name");
                 int price = rs.getInt("price");
                 int duration = rs.getInt("duration");
-                int[] date = {rs.getInt("dateDay"),rs.getInt("dateMonth"),rs.getInt("dateYear")};
+                int[] date = {rs.getInt("dateDay"), rs.getInt("dateMonth"), rs.getInt("dateYear")};
                 String location = rs.getString("location");
                 String customerID = rs.getString("customerID");
                 String reviewID = rs.getString("reviewID");
                 int customerCNT = rs.getInt("customerCNT");
                 int reviewCNT = rs.getInt("reviewCNT");
-                int[] customers = getCustomers(customerCNT,rs.getString("customerID"));
-                int[] reviews = getReviews(reviewCNT,rs.getString("reviewID"));
-                fylki[i] = new DayTour(id,name,price,duration,date,location,customerCNT,customers,reviewCNT,reviews);
+
+                // Check for null or empty customerID and reviewID before processing
+                int[] customers = (customerID != null && !customerID.isEmpty()) ? getCustomers(customerCNT, customerID) : null;
+                int[] reviews = (reviewID != null && !reviewID.isEmpty()) ? getReviews(reviewCNT, reviewID) : null;
+
+                fylki[i] = new DayTour(id, name, price, duration, date, location, customerCNT, customers, reviewCNT, reviews);
+                i++; // Increment index after adding each tour to the array
             }
             System.out.println(fylki.length);
             return fylki;

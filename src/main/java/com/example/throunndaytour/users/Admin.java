@@ -11,8 +11,10 @@ public class Admin extends User {
     public static void deleteAll() {
 
     }
-
+}
+/**
     public static void createTour(DayTour dayTour) {
         DayTourController.addDayTour(dayTour);
     }
 }
+*/
