@@ -1,7 +1,9 @@
 package com.example.throunndaytour.database;
+import com.example.throunndaytour.hlutir.Booking;
 import com.example.throunndaytour.hlutir.DayTour;
 import com.example.throunndaytour.users.User;
 import java.sql.*;
+import java.util.Arrays;
 
 /**
     Connection
@@ -133,7 +135,7 @@ public class DatabaseDaytour {
      *  Daytour föll
      */
 
-    //Create daytour
+    //Create daytour (testað og virkar)
 
 
     public static DayTour createDayTour(String Name,int Price,int Duration,int[] Date,String Location) {
@@ -146,6 +148,7 @@ public class DatabaseDaytour {
             String q = "INSERT INTO daytour (name,id,price,duration,dateDay,dateMonth,dateYear,location,customerCNT,customerID,reviewCNT,reviewID) VALUES ('" + Name + "'," + id + "," + Price + "," + Duration +"," + Date[0] +"," + Date[1] + "," + Date[2] + ",'" + Location + "'," + 0 + "," + 0 + ",'','');";
             PreparedStatement statement = conn.prepareStatement(q);
             statement.executeUpdate();
+            System.out.println("yahoo");
             return new DayTour(id,Name,Price,Duration,Date,Location,0,new int[0],0,new int[0]);
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
@@ -211,7 +214,7 @@ public class DatabaseDaytour {
             throw new RuntimeException(e);
         }
     }
-    public DayTour[] searchDayTour(String search) {
+    public static DayTour[] searchDayTour(String search) {
         try {
             getConnection();
             //Finna hversu margar raðir eru
@@ -241,12 +244,32 @@ public class DatabaseDaytour {
                 int[] reviews = getReviews(reviewCNT,rs.getString("reviewID"));
                 fylki[i] = new DayTour(id,name,price,duration,date,location,customerCNT,customers,reviewCNT,reviews);
             }
+            System.out.println(fylki.length);
             return fylki;
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void createDayTour(DayTour dayTour) {
+    /**
+     * Booking aðgerðir
+     */
+
+    //Creates a new booking
+    public static Booking createBooking(int userID, int daytourID) {
+        try {
+            getConnection();
+            int bookingID = getID();
+            String q = "INSERT INTO booking (bookingID,userID,daytourID) VALUES (" + bookingID + "," + userID + "," + daytourID + ");";
+            PreparedStatement statement = conn.prepareStatement(q);
+            statement.executeUpdate();
+            return new Booking(bookingID,userID,daytourID);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    //Cancel booking
+
+
 }
