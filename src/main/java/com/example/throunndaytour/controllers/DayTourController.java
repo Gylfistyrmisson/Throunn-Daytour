@@ -14,8 +14,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-import java.util.Date;
-
 public class DayTourController {
     @FXML
     public ListView<DayTour> listViewDayTours;
@@ -23,8 +21,8 @@ public class DayTourController {
     private ObservableList<DayTour> dayTours = FXCollections.observableArrayList();
 
 
-    public static void addDayTour(DayTour dayTour) {
-        DatabaseDaytour.createDayTour(dayTour);
+    public static void createDayTour(String Name,int Price,int Duration,int[] Date,String Location) {
+        DatabaseDaytour.createDayTour(Name,Price,Duration,Date,Location);
     }
 
     @FXML
