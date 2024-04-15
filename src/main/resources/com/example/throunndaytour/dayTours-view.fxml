@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane prefHeight="461.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.throunndaytour.controllers.DayTourController">
    <children>
       <GridPane prefHeight="461.0" prefWidth="600.0">
@@ -31,8 +30,8 @@
                <buttons>
                   <HBox alignment="CENTER" prefHeight="63.0" prefWidth="531.0">
                      <children>
-                        <Label prefHeight="17.0" prefWidth="44.0" text="Leita:" />
-                        <TextField prefHeight="25.0" prefWidth="131.0" />
+                        <TextField fx:id="searchField" prefHeight="25.0" prefWidth="131.0" />
+                        <Button mnemonicParsing="false" onAction="#onLeitaHandler" text="Leita" />
                      </children>
                   </HBox>
                </buttons>
@@ -47,7 +46,7 @@
             <VBox alignment="CENTER" GridPane.columnIndex="1">
                <children>
                   <Label prefHeight="17.0" prefWidth="29.0" text="Sort?" />
-                  <ChoiceBox prefHeight="25.0" prefWidth="90.0" />
+                  <ChoiceBox fx:id="sortChoiceBox" prefHeight="25.0" prefWidth="90.0" />
                </children>
             </VBox>
          </children>

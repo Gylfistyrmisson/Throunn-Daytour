@@ -6,55 +6,58 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.util.Arrays;
 import java.util.Date;
+
+import static com.example.throunndaytour.database.DatabaseDaytour.*;
 
 public class DayTourController {
     @FXML
     public ListView<DayTour> listViewDayTours;
+    @FXML
+    public TextField searchField;
+    @FXML
+    private ChoiceBox<String> sortChoiceBox;
 
     private ObservableList<DayTour> dayTours = FXCollections.observableArrayList();
 
 
     public static void addDayTour(DayTour dayTour) {
-        DatabaseDaytour.createDayTour(dayTour);
+        createDayTour(dayTour);
     }
 
     @FXML
     public void initialize() {
-        // Creating a mock DayTour for testing
-        for (int i = 1; i <= 20; i++) {
-            String tourName = "Tour " + i;
-            int price = 100 + i; // Incrementing price for variety
-            int[] date = {2024, 4, i}; // Date array representing year, month, day
-            int[] customers = {1, 2, 3}; // Example customers array
-            int[] reviews = {4, 5, 6}; // Example reviews array
-            DayTour tour = new DayTour(i, tourName, price, 8, date, "Reykjavik", customers.length, customers, reviews.length, reviews);
-            dayTours.add(tour);
+
+        try {
+            DayTour[] allDayTours = DatabaseDaytour.searchDayTour("");
+            if (allDayTours != null && allDayTours.length > 0) {
+                dayTours.addAll(Arrays.asList(allDayTours));
+                System.out.println("Tours added: " + dayTours.size());
+            } else {
+                System.out.println("No tours found or array is empty");
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to fetch tours: " + e.getMessage());
+            e.printStackTrace();
         }
 
         listViewDayTours.setItems(dayTours);
-        listViewDayTours.setCellFactory(new Callback<ListView<DayTour>, ListCell<DayTour>>() {
+        listViewDayTours.setCellFactory(param -> new ListCell<DayTour>() {
             @Override
-            public ListCell<DayTour> call(ListView<DayTour> param) {
-                return new ListCell<DayTour>() {
-                    @Override
-                    protected void updateItem(DayTour item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty || item == null) {
-                            setText(null);
-                        } else {
-                            setText(item.getName() + " - $" + item.getPrice() + " for " + item.getDuration() + " hours");
-                        }
-                    }
-                };
+            protected void updateItem(DayTour item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getName() + " - $" + item.getPrice() + " for " + item.getDuration() + " hours");
+                }
             }
         });
     }
@@ -83,5 +86,39 @@ public class DayTourController {
         detailsStage.setScene(scene);
         detailsStage.showAndWait(); // Show and wait for it to be closed before returning to the main application
 
+    }
+
+    public void onLeitaHandler(ActionEvent actionEvent) {
+        String searchText = searchField.getText(); // Get text from searchField
+        loadDayTours(searchText); // Load tours based on search text
+    }
+
+    private void loadDayTours(String search) {
+        dayTours.clear(); // Clear existing data
+        try {
+            DayTour[] allDayTours = DatabaseDaytour.searchDayTour(search); // Fetch tours with new search term
+            if (allDayTours != null && allDayTours.length > 0) {
+                dayTours.addAll(Arrays.asList(allDayTours));
+                System.out.println("Tours added: " + dayTours.size());
+            } else {
+                System.out.println("No tours found with the search criteria");
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to fetch tours: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        listViewDayTours.setItems(dayTours);
+        listViewDayTours.setCellFactory(param -> new ListCell<DayTour>() {
+            @Override
+            protected void updateItem(DayTour item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getName() + " - $" + item.getPrice() + " for " + item.getDuration() + " hours");
+                }
+            }
+        });
     }
 }
