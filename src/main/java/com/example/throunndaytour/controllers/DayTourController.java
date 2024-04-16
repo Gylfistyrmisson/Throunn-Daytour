@@ -31,16 +31,6 @@ public class DayTourController {
 
     private ObservableList<DayTour> dayTours = FXCollections.observableArrayList();
 
-/**
-    public static void addDayTour(DayTour dayTour) {
-        createDayTour(dayTour);
-
-
-    public static void createDayTour(String Name,int Price,int Duration,int[] Date,String Location) {
-        DatabaseDaytour.createDayTour(Name,Price,Duration,Date,Location);
-    }
-
-*/
     /**
      * Upphafstillir:
      * - Choice boxið
@@ -218,7 +208,24 @@ public class DayTourController {
         }
     }
 
+    /**
+     * Opnar nýjan Create DayTour glugga.
+     * @param actionEvent
+     */
     public void onCreateHandler(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(DayTourApplication.class.getResource("createTour-view.fxml"));
+            VBox layout = loader.load();
+
+            Stage detailsStage = new Stage();
+            detailsStage.initModality(Modality.APPLICATION_MODAL);
+            detailsStage.setTitle("Búa til Day tour");
+            detailsStage.setScene(new Scene(layout, 400, 400));
+            detailsStage.showAndWait();
+            loadDayTours("");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }
