@@ -2,6 +2,7 @@ package com.example.throunndaytour.controllers;
 import com.example.throunndaytour.DayTourApplication;
 import com.example.throunndaytour.database.DatabaseDaytour;
 import com.example.throunndaytour.hlutir.DayTour;
+import com.example.throunndaytour.vidmot.TourDetailsController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -130,40 +131,21 @@ public class DayTourController {
      * @param tour DayTour
      */
     private void showTourDetails(DayTour tour) {
-        Stage detailsStage = new Stage();
-        detailsStage.initModality(Modality.APPLICATION_MODAL);
-        detailsStage.setTitle("Tour Details");
+        try {
+            FXMLLoader loader = new FXMLLoader(DayTourApplication.class.getResource("tourDetails-view.fxml"));
+            VBox layout = loader.load();
 
-        VBox layout = new VBox(10);
-        layout.setAlignment(Pos.CENTER);
+            TourDetailsController controller = loader.getController();
+            controller.setTourDetails(tour);
 
-        HBox nameBox = new HBox(new Label(tour.getName()));
-        nameBox.setAlignment(Pos.CENTER);
-
-        HBox priceBox = new HBox(new Label("Price: $" + tour.getPrice()));
-        priceBox.setAlignment(Pos.CENTER);
-
-        HBox durationBox = new HBox(new Label("Duration: " + tour.getDuration() + " hours"));
-        durationBox.setAlignment(Pos.CENTER);
-
-        int[] dateArray = tour.getDate();
-        String formattedDate = String.format("%d/%d/%d", dateArray[0], dateArray[1], dateArray[2]);
-        HBox dateBox = new HBox(new Label("Date: " + formattedDate));
-        dateBox.setAlignment(Pos.CENTER);
-
-        HBox locationBox = new HBox(new Label("Location: " + tour.getLocation()));
-        locationBox.setAlignment(Pos.CENTER);
-
-        Button bookingButton = new Button("Bóka");
-        bookingButton.setOnAction(this::onBokaClick);  // Connect the button to the onBokaClick method
-        HBox buttonBox = new HBox(bookingButton);
-        buttonBox.setAlignment(Pos.CENTER);
-
-        layout.getChildren().addAll(nameBox, priceBox, durationBox, dateBox, locationBox, buttonBox);
-
-        Scene scene = new Scene(layout, 400, 400); // You might want to adjust the size based on content
-        detailsStage.setScene(scene);
-        detailsStage.showAndWait();
+            Stage detailsStage = new Stage();
+            detailsStage.initModality(Modality.APPLICATION_MODAL);
+            detailsStage.setTitle("Tour Details");
+            detailsStage.setScene(new Scene(layout, 400, 400));
+            detailsStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -234,6 +216,10 @@ public class DayTourController {
         } else {
             System.out.println("No tour selected");
         }
+    }
+
+    public void onCreateHandler(ActionEvent actionEvent) {
+
     }
 }
 
