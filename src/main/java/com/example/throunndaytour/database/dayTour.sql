@@ -4,7 +4,8 @@ CREATE TABLE user (
     email VarChar(30),
     kennitala VarChar(10),
     password VarChar(30),
-    isAdmin INT );
+    isAdmin INT
+);
 
 CREATE TABLE daytour (
     name VarChar(30),
@@ -15,15 +16,28 @@ CREATE TABLE daytour (
     dateMonth INT,
     dateYear INT,
     location VarChar(30),
-    customerID VarChar(100),
-    reviewID VarChar(100) );
+    customerCNT INT,
+    customerID VarChar(1000),
+    reviewCNT INT,
+    reviewID VarChar(1000)
+);
 
 CREATE TABLE review (
     name VarChar(30),
     description VarChar(200),
     rating INT,
-    id INT );
+    id INT
+);
+
+CREATE TABLE booking (
+    bookingID INT,
+    userID INT,
+    daytourID INT
+);
 
 CREATE TABLE idGenerator (
-    value INT );
+    value INT
+);
 
+//Til að pre-setta idGenerator
+INSERT INTO idGenerator (value) VALUES(0);

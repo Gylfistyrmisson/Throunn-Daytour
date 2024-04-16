@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-
 
 <AnchorPane prefHeight="461.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.throunndaytour.controllers.DayTourController">
    <children>
@@ -31,8 +30,13 @@
                <buttons>
                   <HBox alignment="CENTER" prefHeight="63.0" prefWidth="531.0">
                      <children>
-                        <Label prefHeight="17.0" prefWidth="44.0" text="Leita:" />
-                        <TextField prefHeight="25.0" prefWidth="131.0" />
+                        <TextField fx:id="searchField" prefHeight="25.0" prefWidth="131.0" />
+                        <Button mnemonicParsing="false" onAction="#onLeitaHandler" text="Leita" />
+                        <ChoiceBox fx:id="sortChoiceBox" prefHeight="25.0" prefWidth="90.0">
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
+                        </ChoiceBox>
                      </children>
                   </HBox>
                </buttons>
@@ -40,16 +44,11 @@
             <VBox alignment="CENTER" prefHeight="399.0" prefWidth="74.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <Button mnemonicParsing="false" onAction="#openDayTourHandler" text="Skoða" />
-                  <Button mnemonicParsing="false" text="Breyta" />
+                  <Button mnemonicParsing="false" onAction="#onBokaClick" text="Bóka" />
                   <Button mnemonicParsing="false" text="Eyða" textAlignment="CENTER" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" GridPane.columnIndex="1">
-               <children>
-                  <Label prefHeight="17.0" prefWidth="29.0" text="Sort?" />
-                  <ChoiceBox prefHeight="25.0" prefWidth="90.0" />
-               </children>
-            </VBox>
+            <VBox alignment="CENTER" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>
