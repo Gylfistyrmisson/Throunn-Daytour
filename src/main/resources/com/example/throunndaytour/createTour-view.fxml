@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.throunndaytour.vidmot.CreateTourController"
+      prefHeight="400.0" prefWidth="600.0">
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Búa til nýtt Day Tour" wrappingWidth="130.13671875" />
+      <HBox alignment="CENTER" prefHeight="23.0" prefWidth="600.0">
+         <children>
+            <Label text="Nafn:" />
+            <TextField />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="24.0" prefWidth="600.0">
+         <children>
+            <Label text="Lýsing:" />
+            <TextField />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="0.0" prefWidth="600.0">
+         <children>
+            <Label text="Nafn:" />
+            <TextField />
+         </children>
+      </HBox>
+   </children>
+</VBox>
