@@ -1,6 +1,7 @@
 package com.example.throunndaytour.users;
 
 import com.example.throunndaytour.controllers.DayTourController;
+import com.example.throunndaytour.database.DatabaseDaytour;
 import com.example.throunndaytour.hlutir.DayTour;
 
 import java.util.Date;
@@ -19,11 +20,12 @@ public class Admin extends User {
     }
 
     public static void createTour(DayTour dayTour) {
-        DayTourController.addDayTour(dayTour);
+        DatabaseDaytour.createDayTour(dayTour.getName(), dayTour.getPrice(), dayTour.getDuration(), dayTour.getDate(),
+                dayTour.getLocation());
     }
 
     public static void deleteTour(DayTour dayTour) {
-        DayTourController.removeDayTour(dayTour.getId());
+        //DayTourController.removeDayTour(dayTour.getId());
     }
 
     public static void editTourID(DayTour dayTour, int id) {
