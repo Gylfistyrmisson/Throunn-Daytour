@@ -6,11 +6,14 @@
   - [X] Register takki, færir yfir á register-view
 - [X] Register view
   - [ ] css / útlit?
-  - [ ] Tengja við database
-  - [ ] færa yfir á dayTours view eftir register  
-- [ ] DayTourS view, birta alla túra.
+  - [X] Tengja við database
+  - [X] færa yfir á dayTours view eftir register
+      - [ ] útfæra betur.
+- [X] DayTourS view, birta alla túra.
   - [ ] css / útlit? 
-  - [ ] filters / search
+  - [X] filters / search
+    - [X] Search
+    - [X] Sort  
 - [ ] DayTour view, fyrir stakt daytour?
   - [ ] css / útlit? 
   - [ ] reviews
@@ -21,6 +24,7 @@
   - [ ] customer fields.
 - [ ] Admin view
   - [ ] css / útlit?    
-  - [ ] búa til túr
-  - [ ] eyða túr
-  - [ ] breyta túr
+  - [X] búa til túr
+  - [] eyða túr
+  - [X] breyta túr
+  - [ ] Tengja admin methods við database.
