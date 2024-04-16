@@ -44,8 +44,9 @@
             <VBox alignment="CENTER" prefHeight="399.0" prefWidth="74.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <Button mnemonicParsing="false" onAction="#openDayTourHandler" text="Skoða" />
+                  <Button mnemonicParsing="false" onAction="#onCreateHandler" text="Búa til" />
                   <Button mnemonicParsing="false" onAction="#onBokaClick" text="Bóka" />
-                  <Button mnemonicParsing="false" text="Eyða" textAlignment="CENTER" />
+                  <Button mnemonicParsing="false" text="Eyða??" textAlignment="CENTER" />
                </children>
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="1" />
