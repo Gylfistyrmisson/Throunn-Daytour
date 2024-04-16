@@ -31,7 +31,6 @@ public class LoginController {
 
     @FXML
     public void handleSubmitButtonAction() {
-        DatabaseDaytour.cancelBooking(3,1);
         String email = emailField.getText();
         String password = passwordField.getText();
         User user = DatabaseDaytour.authenticateUser(email, password);
