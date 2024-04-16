@@ -186,14 +186,16 @@ public class DatabaseDaytour {
     public static int[] getCustomers (int customerCNT, String customers) {
         int[] cust = new int[customerCNT];
         int i = 0;
-        StringBuilder s = new StringBuilder();
+        String s = "";
+        System.out.println(customers.length());
         for (int j = 0; j < customers.length(); j++){
-            char a = customers.charAt(j);
-            if (a == ','){
-                cust[i] = Integer.parseInt(s.toString());
-                s = new StringBuilder();
+            System.out.println(s);
+            if (customers.charAt(j) == ','){
+                cust[i] = Integer.parseInt(s);
+                i++;
+                s = "";
             } else {
-                s.append(a);
+                s += customers.charAt(j);
             }
         }
         return cust;
@@ -202,6 +204,7 @@ public class DatabaseDaytour {
     //Fá fylki af reviewID(hjálpar aðferð)
 
     public static int[] getReviews (int reviewCNT, String reviews) {
+        if (reviewCNT == 0) {return new int[]{};}
         int[] cust = new int[reviewCNT];
         int i = 0;
         StringBuilder s = new StringBuilder();
