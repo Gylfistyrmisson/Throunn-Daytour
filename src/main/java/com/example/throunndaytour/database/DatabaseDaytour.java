@@ -10,6 +10,9 @@ import java.util.Arrays;
  */
 
 public class DatabaseDaytour {
+    private User[] users = new User[0];
+
+
     private static Connection conn = null;
     public static void getConnection() throws ClassNotFoundException {
         if(conn != null) return;
@@ -67,13 +70,13 @@ public class DatabaseDaytour {
                 int id = getID();
 
                 //Búa til nýjan user í user töflunni
-                String q3 = "INSERT INTO user (name,id,email,kennitala,password) VALUES ('" + name + "'," + id + ",'" + email + "','" + kennitala + "','" + password + "');";
+                String q3 = "INSERT INTO user (name,id,email,kennitala,password,daytourCNT,daytours) VALUES ('" + name + "'," + id + ",'" + email + "','" + kennitala + "','" + password + "'," + 0 + ",'');";
                 PreparedStatement c = conn.prepareStatement(q3);
                 c.executeUpdate();
 
                 //Skilar true ef það var hægt að búa til user annars skilar false
                 System.out.println("Success");
-                return new User(id, name, email, kennitala, password);
+                return new User(id, name, email, kennitala, password,0,new int[]{});
                 }
             else return null;
             } catch(ClassNotFoundException | SQLException e){
@@ -101,8 +104,19 @@ public class DatabaseDaytour {
                 String email = q2.getString("email");
                 String kennitala = q2.getString("kennitala");
                 String password = q2.getString("password");
-                User user = new User(id, name, email, kennitala, password);
-                return user;
+                int dayTourCNT = q2.getInt("daytourCNT");
+                int[] dayTours = new int[dayTourCNT];
+                String daytours = q2.getString("daytours");
+                StringBuilder daytour = new StringBuilder();
+                int j = 0;
+                for (int i = 0;i < daytours.length();i++) {
+                    if (daytours.charAt(i) != ",".charAt(0)) {
+                        daytour.append(daytours.charAt(i));
+                    } else {
+                        dayTours[j] = Integer.parseInt(String.valueOf(daytour));
+                    }
+                }
+                return new User(id, name, email, kennitala, password,dayTourCNT,dayTours);
             }
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
@@ -122,14 +136,27 @@ public class DatabaseDaytour {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String kennitala = rs.getString("kennitala");
-                User user = new User(id, name, email, kennitala, password);
-                return user;
+                int dayTourCNT = rs.getInt("daytourCNT");
+                int[] dayTours = new int[dayTourCNT];
+                String daytours = rs.getString("daytours");
+                StringBuilder daytour = new StringBuilder();
+                int j = 0;
+                for (int i = 0;i < daytours.length();i++) {
+                    if (daytours.charAt(i) != ",".charAt(0)) {
+                        daytour.append(daytours.charAt(i));
+                    } else {
+                        dayTours[j] = Integer.parseInt(String.valueOf(daytour));
+                    }
+                }
+                return new User(id, name, email, kennitala, password,dayTourCNT,dayTours);
             }
             return null;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
+
 
     /**
      *  Daytour föll
@@ -145,7 +172,7 @@ public class DatabaseDaytour {
 
             //Búa til daytour
             int id = getID();
-            String q = "INSERT INTO daytour (name,id,price,duration,dateDay,dateMonth,dateYear,location,customerCNT,customerID,reviewCNT,reviewID) VALUES ('" + Name + "'," + id + "," + Price + "," + Duration +"," + Date[0] +"," + Date[1] + "," + Date[2] + ",'" + Location + "'," + 0 + "," + 0 + ",'','');";
+            String q = "INSERT INTO daytour (name,id,price,duration,dateDay,dateMonth,dateYear,location,customerCNT,customerID,reviewCNT,reviewID) VALUES ('" + Name + "'," + id + "," + Price + "," + Duration +"," + Date[0] +"," + Date[1] + "," + Date[2] + ",'" + Location + "'," + 0 + ",''," + 0 + ",'');";
             PreparedStatement statement = conn.prepareStatement(q);
             statement.executeUpdate();
             System.out.println("yahoo");
@@ -256,20 +283,103 @@ public class DatabaseDaytour {
         }
     }
 
+    public static void addBooking(int daytourID,int userID) {
+        try {
+            getConnection();
+
+            //Update the daytour database
+            String q1 = "SELECT customerCNT,customerID FROM daytour WHERE id == " + daytourID + ";";
+            PreparedStatement statement = conn.prepareStatement(q1);
+            ResultSet rs1 = statement.executeQuery();
+            int customerCNT = rs1.getInt("customerCNT");
+            String customerID = rs1.getString("customerID");
+            customerCNT += 1;
+            customerID += userID + ",";
+            rs1.close();
+            String q2 = "UPDATE daytour SET customerCNT = " + customerCNT + ",customerID = '" + customerID + "' WHERE id == " + daytourID + ";";
+            PreparedStatement statement1 = conn.prepareStatement(q2);
+            statement1.executeUpdate();
+
+            //Update the Daytour object
+            String q3 = "SELECT daytourCNT,daytours FROM user WHERE id == " + userID + ";";
+            PreparedStatement statement2 = conn.prepareStatement(q3);
+            ResultSet rs2 = statement2.executeQuery();
+            int daytourCNT = rs2.getInt("daytourCNT");
+            String daytours = rs2.getString("daytours");
+            daytourCNT += 1;
+            daytours += daytourID + ",";
+
+            String q4 = "UPDATE user SET daytourCNT = " + daytourCNT + ",daytours = '" + daytours + "' WHERE id == " + userID + ";";
+            PreparedStatement statement3 = conn.prepareStatement(q4);
+            statement3.executeUpdate();
+            rs2.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * Booking aðgerðir
      */
 
     //Creates a new booking
-    public static Booking createBooking(int userID, int daytourID) {
+    public static void cancelBooking(int daytourID,int userID) {
         try {
             getConnection();
-            int bookingID = getID();
-            String q = "INSERT INTO booking (bookingID,userID,daytourID) VALUES (" + bookingID + "," + userID + "," + daytourID + ");";
-            PreparedStatement statement = conn.prepareStatement(q);
-            statement.executeUpdate();
-            return new Booking(bookingID,userID,daytourID);
-        } catch (SQLException | ClassNotFoundException e) {
+
+            //Update the daytour database
+            String q1 = "SELECT customerCNT,customerID FROM daytour WHERE id == " + daytourID + ";";
+            PreparedStatement statement = conn.prepareStatement(q1);
+            ResultSet rs1 = statement.executeQuery();
+            int customerCNT = rs1.getInt("customerCNT");
+            String customerID = rs1.getString("customerID");
+            StringBuilder customerIDnytt = new StringBuilder();
+            String p = "";
+
+            for (int i = 0; i < customerID.length();i++) {
+                System.out.println(p);
+                if (customerID.charAt(i) == ',') {
+                    if (userID != Integer.parseInt(p)) {
+                        customerIDnytt.append(p).append(",");
+                    }
+                    p = "";
+                } else {
+                    p += customerID.charAt(i);
+                }
+            }
+
+            String q2 = "UPDATE daytour SET customerCNT = " + (customerCNT - 1) + ",customerID = '" + customerIDnytt + "' WHERE id == " + daytourID + ";";
+            PreparedStatement statement1 = conn.prepareStatement(q2);
+            statement1.executeUpdate();
+
+            //Update the user object
+            String q3 = "SELECT daytourCNT,daytours FROM user WHERE id == " + userID + ";";
+            PreparedStatement statement2 = conn.prepareStatement(q3);
+            ResultSet rs2 = statement2.executeQuery();
+            int daytourCNT = rs2.getInt("daytourCNT");
+            String daytours = rs2.getString("daytours");
+
+            StringBuilder daytoursnytt = new StringBuilder();
+            String q = "";
+            for (int i = 0; i < daytours.length();i++) {
+                if (daytours.charAt(i) == ',') {
+                    if (daytourID != Integer.parseInt(q)) {
+                        daytoursnytt.append(q).append(",");
+                    }
+                    q = "";
+                }else {
+                    q += daytours.charAt(i);
+                }
+            }
+
+            String q4 = "UPDATE user SET daytourCNT = " + (daytourCNT - 1) + ",daytours = '" + daytoursnytt + "' WHERE id == " + userID + ";";
+            PreparedStatement statement3 = conn.prepareStatement(q4);
+            statement3.executeUpdate();
+            rs1.close();
+            rs2.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
     }
