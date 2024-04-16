@@ -25,6 +25,6 @@
 - [ ] Admin view
   - [ ] css / útlit?    
   - [X] búa til túr
-  - [X] eyða túr
+  - [] eyða túr
   - [X] breyta túr
   - [ ] Tengja admin methods við database.
