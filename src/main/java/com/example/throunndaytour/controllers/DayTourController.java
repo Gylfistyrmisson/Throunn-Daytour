@@ -136,6 +136,7 @@ public class DayTourController {
 
             TourDetailsController controller = loader.getController();
             controller.setTourDetails(tour);
+            controller.initData(user);
 
             Stage detailsStage = new Stage();
             detailsStage.initModality(Modality.APPLICATION_MODAL);

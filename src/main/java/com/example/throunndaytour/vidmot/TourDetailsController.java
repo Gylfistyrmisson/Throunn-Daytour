@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 
 public class TourDetailsController {
-
     @FXML
     private Label nameLabel, priceLabel, durationLabel, dateLabel, locationLabel;
 
@@ -25,6 +24,9 @@ public class TourDetailsController {
         int[] dateArray = tour.getDate();
         dateLabel.setText(String.format("Date: %d/%d/%d", dateArray[0], dateArray[1], dateArray[2]));
         locationLabel.setText("Location: " + tour.getLocation());
+    }
+    public void initData(User user) {
+        this.user = user;
     }
 }
 
