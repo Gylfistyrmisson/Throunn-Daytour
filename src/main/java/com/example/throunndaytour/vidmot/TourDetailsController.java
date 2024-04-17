@@ -1,6 +1,6 @@
 package com.example.throunndaytour.vidmot;
-
 import com.example.throunndaytour.hlutir.DayTour;
+import com.example.throunndaytour.users.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
@@ -9,6 +9,8 @@ public class TourDetailsController {
 
     @FXML
     private Label nameLabel, priceLabel, durationLabel, dateLabel, locationLabel;
+
+    private User user;
 
     @FXML
     private void onBokaClick(ActionEvent event) {
