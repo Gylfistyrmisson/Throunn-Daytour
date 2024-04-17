@@ -34,4 +34,12 @@ public class User {
         dayTours = nyttFylki;
         daytourCNT++;
     }
+
+    public String getName () {
+        return name;
+    }
+
+    public int getId () {
+        return id;
+    }
 }

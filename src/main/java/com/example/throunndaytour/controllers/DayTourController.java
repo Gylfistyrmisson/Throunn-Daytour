@@ -2,6 +2,7 @@ package com.example.throunndaytour.controllers;
 import com.example.throunndaytour.DayTourApplication;
 import com.example.throunndaytour.database.DatabaseDaytour;
 import com.example.throunndaytour.hlutir.DayTour;
+import com.example.throunndaytour.users.User;
 import com.example.throunndaytour.vidmot.TourDetailsController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +22,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import static com.example.throunndaytour.database.DatabaseDaytour.addBooking;
+
 public class DayTourController {
     @FXML
     public ListView<DayTour> listViewDayTours;
@@ -31,6 +34,11 @@ public class DayTourController {
 
     private ObservableList<DayTour> dayTours = FXCollections.observableArrayList();
 
+    private User user;
+
+    @FXML
+    private Label userName;
+
     /**
      * Upphafstillir:
      * - Choice boxið
@@ -38,6 +46,7 @@ public class DayTourController {
      */
         @FXML
         public void initialize () {
+
             sortChoiceBox.setItems(FXCollections.observableArrayList(
                     "--Sort--",
                     "Price (High to Low)",
@@ -227,6 +236,22 @@ public class DayTourController {
             e.printStackTrace();
         }
 
+    }
+    public void initData(User user) {
+        this.user = user;
+        userName.setText(user.getName());
+    }
+
+    public void BokaButtonHandler(ActionEvent actionEvent) {
+        DayTour selectedTour = listViewDayTours.getSelectionModel().getSelectedItem();
+        if (selectedTour != null) {
+            int daytourID = selectedTour.getId();
+            int userId = user.getId();
+            addBooking(daytourID, userId);
+            System.out.println("Tókst!");
+        } else {
+            System.out.println("No tour selected. Please select a tour to book.");
+        }
     }
 }
 
