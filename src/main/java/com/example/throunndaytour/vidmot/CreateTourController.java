@@ -51,12 +51,12 @@ public class CreateTourController {
             if (date != null) {
                 int[] dateArray = {date.getDayOfMonth(), date.getMonthValue(), date.getYear()};
                 DatabaseDaytour.createDayTour(name, price, duration, dateArray, location, description);
-                infoLabel.setText("Tókst að búa til Day tour.");
+                infoLabel.setText("Day tour created.");
             } else {
-                infoLabel.setText("Vantar dagsetningu");
+                infoLabel.setText("Date missing");
             }
         } catch (NumberFormatException e) {
-            infoLabel.setText("Fylla þarf í alla glugga. Verð og Lengd þurfa að vera tölur");
+            infoLabel.setText("Fill in all the fields.");
             System.out.println("Error parsing number: " + e.getMessage());
             e.printStackTrace();
         }

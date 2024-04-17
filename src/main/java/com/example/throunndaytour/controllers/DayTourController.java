@@ -84,7 +84,8 @@ public class DayTourController {
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    setText(item.getName() + " - " + item.getPrice()+ " ISK" + " for " + item.getDuration() + " hours");
+                    setText(item.getName() + " - " + item.getPrice() + " ISK" + " for " + item.getDuration() + " hours - " + "Bokkings: " + item.getCustomerCNT());
+
                 }
             }
         });
@@ -92,7 +93,7 @@ public class DayTourController {
 
     /**
      * Sér um choice box sortingið
-     *
+     *      *
      * @param sortBy
      */
     private void sortTours(String sortBy) {
@@ -194,7 +195,7 @@ public class DayTourController {
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    setText(item.getName() + " - $" + item.getPrice() + " for " + item.getDuration() + " hours");
+                    setText(item.getName() + " - " + item.getPrice() + " ISK" + " for " + item.getDuration() + " hours - " + "Bokkings: " + item.getCustomerCNT());
                 }
             }
         });
@@ -261,6 +262,7 @@ public class DayTourController {
             int userId = user.getId();
             addBooking(daytourID, userId);
             actionText.setText("Reservation confirmed.");
+            loadDayTours("");
         } else {
             actionText.setText("Please select a day tour to reserve");
         }
