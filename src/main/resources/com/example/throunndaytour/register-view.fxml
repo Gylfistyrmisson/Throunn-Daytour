@@ -3,19 +3,24 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.throunndaytour.vidmot.RegisterController">
+<AnchorPane prefHeight="400.0" prefWidth="422.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.throunndaytour.vidmot.RegisterController">
    <children>
-      <Text layoutX="278.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nýskráning" />
-      <GridPane layoutX="166.0" layoutY="99.0" prefHeight="249.0" prefWidth="255.0">
+      <Text fill="#4260c7" layoutX="27.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font></Text>
+      <GridPane layoutX="27.0" layoutY="76.0" prefHeight="249.0" prefWidth="326.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="10.0" prefWidth="59.66666666666666" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="414.0" minWidth="10.0" prefWidth="207.66666666666666" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="10.0" prefWidth="167.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="414.0" minWidth="10.0" prefWidth="159.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -24,18 +29,36 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="nameField" GridPane.columnIndex="1" />
+            <TextField fx:id="nameField" prefHeight="25.0" prefWidth="206.0" GridPane.columnIndex="1" />
             <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="kennitalaField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Nafn:" />
-            <Label text="Netfang:" GridPane.rowIndex="1" />
-            <Label text="Kennitala:" GridPane.rowIndex="2" />
-            <Label text="Lykilorð:" GridPane.rowIndex="3" />
+            <Label prefHeight="17.0" prefWidth="71.0" text="Username:" textFill="#4260c7">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label text="Email:" textFill="#4260c7" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label prefHeight="17.0" prefWidth="149.0" text="Social-security number :" textFill="#4260c7" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label text="Password:" textFill="#4462c7" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
          </children>
       </GridPane>
-      <Button layoutX="239.3333282470703" layoutY="355.3333435058594" mnemonicParsing="false" onAction="#handleStadfestaButtonAction" text="Staðfesta" />
-    <Button layoutX="324.6666564941406" layoutY="355.3333435058594" mnemonicParsing="false" onAction="#handleLoginButtonAction" text="Innskráning" />
-      <Label fx:id="messageField" layoutX="241.0" layoutY="72.0" prefHeight="17.0" prefWidth="118.0" />
+    <Button layoutX="27.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" text="Back to login" />
+      <Label fx:id="messageField" layoutX="134.0" layoutY="334.0" prefHeight="20.0" prefWidth="141.0" textAlignment="CENTER" textFill="#4260c7">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Button defaultButton="true" layoutX="282.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleStadfestaButtonAction" prefHeight="25.0" prefWidth="71.0" text="Sign up" />
    </children>
+   <effect>
+      <Blend />
+   </effect>
 </AnchorPane>

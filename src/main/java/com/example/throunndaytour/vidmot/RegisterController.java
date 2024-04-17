@@ -45,7 +45,7 @@ public class RegisterController {
         try {
             User user = DatabaseDaytour.createUser(name, email, kennitala, password);
             if (user != null) {
-                messageField.setText("Nýskráning tókst!");
+                messageField.setText("Sign up successful!");
                 clearForm();
             } else {
                 messageField.setText("Þetta netfang er nú þegar í notkun.");
