@@ -24,11 +24,14 @@ public class DayTour {
         this.reviews = reviews;
         this.customerCNT = customerCNT;
         this.reviewCNT = reviewCNT;
-
     }
 
     public int getId() {
         return this.id;
+    }
+
+    public int getCustomerCNT() {
+        return this.customerCNT;
     }
 
     public void setId(int id) {
