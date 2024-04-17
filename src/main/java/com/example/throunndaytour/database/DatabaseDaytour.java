@@ -165,18 +165,18 @@ public class DatabaseDaytour {
     //Create daytour (testað og virkar)
 
 
-    public static DayTour createDayTour(String Name,int Price,int Duration,int[] Date,String Location) {
+    public static DayTour createDayTour(String Name,int Price,int Duration,int[] Date,String Location,String description) {
         //Fá connection
         try {
             getConnection();
 
             //Búa til daytour
             int id = getID();
-            String q = "INSERT INTO daytour (name,id,price,duration,dateDay,dateMonth,dateYear,location,customerCNT,customerID,reviewCNT,reviewID) VALUES ('" + Name + "'," + id + "," + Price + "," + Duration +"," + Date[0] +"," + Date[1] + "," + Date[2] + ",'" + Location + "'," + 0 + ",''," + 0 + ",'');";
+            String q = "INSERT INTO daytour (name,id,price,duration,dateDay,dateMonth,dateYear,location,customerCNT,customerID,reviewCNT,reviewID,description) VALUES ('" + Name + "'," + id + "," + Price + "," + Duration +"," + Date[0] +"," + Date[1] + "," + Date[2] + ",'" + Location + "'," + 0 + ",''," + 0 + ",'','" + description + "');";
             PreparedStatement statement = conn.prepareStatement(q);
             statement.executeUpdate();
             System.out.println("yahoo");
-            return new DayTour(id,Name,Price,Duration,Date,Location,0,new int[0],0,new int[0]);
+            return new DayTour(id,Name,Price,Duration,Date,Location,0,new int[0],0,new int[0],description);
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
@@ -238,7 +238,8 @@ public class DatabaseDaytour {
             int reviewCNT = rs.getInt("reviewCNT");
             int[] customers = getCustomers(customerCNT,rs.getString("customerID"));
             int[] reviews = getReviews(reviewCNT,rs.getString("reviewID"));
-            return new DayTour(daytourID,name,price,duration,date,location,0,customers,0,reviews);
+            String description = rs.getString("description");
+            return new DayTour(daytourID,name,price,duration,date,location,0,customers,0,reviews,description);
 
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
@@ -275,8 +276,9 @@ public class DatabaseDaytour {
                 // Check for null or empty customerID and reviewID before processing
                 int[] customers = (customerID != null && !customerID.isEmpty()) ? getCustomers(customerCNT, customerID) : null;
                 int[] reviews = (reviewID != null && !reviewID.isEmpty()) ? getReviews(reviewCNT, reviewID) : null;
+                String description = rs.getString("description");
 
-                fylki[i] = new DayTour(id, name, price, duration, date, location, customerCNT, customers, reviewCNT, reviews);
+                fylki[i] = new DayTour(id, name, price, duration, date, location, customerCNT, customers, reviewCNT, reviews,description);
                 i++; // Increment index after adding each tour to the array
             }
             System.out.println(fylki.length);
