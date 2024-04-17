@@ -1,6 +1,7 @@
 package com.example.throunndaytour.database;
 import com.example.throunndaytour.hlutir.Booking;
 import com.example.throunndaytour.hlutir.DayTour;
+import com.example.throunndaytour.hlutir.Review;
 import com.example.throunndaytour.users.User;
 import java.sql.*;
 import java.util.Arrays;
@@ -350,7 +351,7 @@ public class DatabaseDaytour {
      * Booking aðgerðir
      */
 
-    //Creates a new booking
+    //Cancel booking
     public static void cancelBooking(int daytourID,int userID) {
         try {
             getConnection();
@@ -411,7 +412,70 @@ public class DatabaseDaytour {
         }
     }
 
-    //Cancel booking
+    /**
+     * Review aðgerðir
+     */
 
+    public static Review addReview(String title, String text, int rating, String username, int daytourID) {
+        try {
+            getConnection();
+
+            //Insert review into review table in db
+            int id = getID();
+            String q1 = "INSERT INTO review (id,title,text,rating,username) VALUES(" + id + ",'" + title + "','" + text + "'," + rating + ",'" + username + "');";
+            PreparedStatement statement1 = conn.prepareStatement(q1);
+            statement1.executeUpdate();
+
+            //Update daytour table with review
+            String q2 = "SELECT reviewCNT,reviewID FROM daytour WHERE id == " + daytourID + ";";
+            PreparedStatement statement2 = conn.prepareStatement(q2);
+            ResultSet rs2 = statement2.executeQuery();
+            int reviewCNT = rs2.getInt("reviewCNT");
+            String reviewID = rs2.getString("reviewID");
+
+            StringBuilder reviewIDnytt = new StringBuilder();
+            String q = "";
+            for (int i = 0; i < reviewID.length();i++) {
+                if (reviewID.charAt(i) == ',') {
+                    if (daytourID != Integer.parseInt(q)) {
+                        reviewIDnytt.append(q).append(",");
+                    }
+                    q = "";
+                }else {
+                    q += reviewID.charAt(i);
+                }
+            }
+            reviewIDnytt.append(id).append(",;");
+            String q3 = "UPDATE daytour SET reviewCNT = " + (reviewCNT + 1) + ",reviewID = '" + reviewIDnytt + "' WHERE id == " + daytourID + ";";
+            PreparedStatement statement3 = conn.prepareStatement(q3);
+            statement3.executeUpdate();
+            rs2.close();
+            //Return review object
+            return new Review(id,title,text,rating,username);
+
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Review getReview(int reviewID) {
+        try {
+            getConnection();
+
+            //Fetch review from database
+            String q = "SELECT * FROM review WHERE id == " + reviewID + ";";
+            PreparedStatement statement = conn.prepareStatement(q);
+            ResultSet rs = statement.executeQuery();
+
+            String title = rs.getString("title");
+            String text = rs.getString("text");
+            int rating = rs.getInt("rating");
+            String username = rs.getString("username");
+
+            return new Review(reviewID,title,text,rating,username);
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
