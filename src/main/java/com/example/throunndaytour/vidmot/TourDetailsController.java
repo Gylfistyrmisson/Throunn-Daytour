@@ -4,11 +4,14 @@ import com.example.throunndaytour.users.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
+import javafx.scene.control.TextArea;
+import javafx.scene.text.Text;
 
 public class TourDetailsController {
     @FXML
     private Label nameLabel, priceLabel, durationLabel, dateLabel, locationLabel;
-
+    @FXML
+    private Text descriptionText;
     private User user;
 
     @FXML
@@ -18,6 +21,8 @@ public class TourDetailsController {
 
     public void setTourDetails(DayTour tour) {
         nameLabel.setText(tour.getName());
+        descriptionText.setText(tour.getDescription());
+        descriptionText.setWrappingWidth(350);
         priceLabel.setText("Price: $" + tour.getPrice());
         durationLabel.setText("Duration: " + tour.getDuration() + " hours");
 

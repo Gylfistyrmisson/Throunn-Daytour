@@ -1,6 +1,5 @@
 package com.example.throunndaytour.vidmot;
 
-import com.example.throunndaytour.hlutir.DayTour;
 import com.example.throunndaytour.database.DatabaseDaytour;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -12,16 +11,10 @@ import java.time.LocalDate;
 public class CreateTourController {
     @FXML
     public Label infoLabel;
-    @FXML
-    private TextField nameField;
-    @FXML
-    private TextField priceField;
-    @FXML
-    private TextField durationField;
-    @FXML
+       @FXML
     private DatePicker datePicker;
     @FXML
-    private TextField locationField;
+    private TextField locationField, descriptionField, durationField, nameField, priceField;
 
     /**
      * Upphafsstillir TextFields sem meiga bara taka við tölum.
@@ -49,6 +42,7 @@ public class CreateTourController {
     public void handleSubmit() {
         try {
             String name = nameField.getText();
+            String description = descriptionField.getText();
             int price = Integer.parseInt(priceField.getText());
             int duration = Integer.parseInt(durationField.getText());
             LocalDate date = datePicker.getValue();
@@ -56,7 +50,7 @@ public class CreateTourController {
 
             if (date != null) {
                 int[] dateArray = {date.getDayOfMonth(), date.getMonthValue(), date.getYear()};
-                DayTour newTour = DatabaseDaytour.createDayTour(name, price, duration, dateArray, location,"");
+                DatabaseDaytour.createDayTour(name, price, duration, dateArray, location, description);
                 infoLabel.setText("Tókst að búa til Day tour.");
             } else {
                 infoLabel.setText("Vantar dagsetningu");

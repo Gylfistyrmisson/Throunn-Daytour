@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -29,6 +30,8 @@ public class DayTourController {
     public ListView<DayTour> listViewDayTours;
     @FXML
     public TextField searchField;
+    @FXML
+    private Text actionText;
     @FXML
     private ChoiceBox<String> sortChoiceBox;
 
@@ -44,51 +47,52 @@ public class DayTourController {
      * - Choice boxið
      * - Listann
      */
-        @FXML
-        public void initialize () {
+    @FXML
+    public void initialize() {
 
-            sortChoiceBox.setItems(FXCollections.observableArrayList(
-                    "--Sort--",
-                    "Price (High to Low)",
-                    "Price (Low to High)",
-                    "Duration (Long to Short)",
-                    "Duration (Short to Long)"
-            ));
-            sortChoiceBox.setValue("--Sort--");
-            sortChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-                if (newVal != null) {
-                    sortTours(newVal);
-                }
-            });
-            try {
-                DayTour[] allDayTours = DatabaseDaytour.searchDayTour("");
-                if (allDayTours != null && allDayTours.length > 0) {
-                    dayTours.addAll(Arrays.asList(allDayTours));
-                    System.out.println("Tours added: " + dayTours.size());
-                } else {
-                    System.out.println("No tours found or array is empty");
-                }
-            } catch (Exception e) {
-                System.out.println("Failed to fetch tours: " + e.getMessage());
-                e.printStackTrace();
+        sortChoiceBox.setItems(FXCollections.observableArrayList(
+                "--Sort--",
+                "Price (High to Low)",
+                "Price (Low to High)",
+                "Duration (Long to Short)",
+                "Duration (Short to Long)"
+        ));
+        sortChoiceBox.setValue("--Sort--");
+        sortChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                sortTours(newVal);
             }
-
-            listViewDayTours.setItems(dayTours);
-            listViewDayTours.setCellFactory(param -> new ListCell<DayTour>() {
-                @Override
-                protected void updateItem(DayTour item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty || item == null) {
-                        setText(null);
-                    } else {
-                        setText(item.getName() + " - $" + item.getPrice() + " for " + item.getDuration() + " hours");
-                    }
-                }
-            });
+        });
+        try {
+            DayTour[] allDayTours = DatabaseDaytour.searchDayTour("");
+            if (allDayTours != null && allDayTours.length > 0) {
+                dayTours.addAll(Arrays.asList(allDayTours));
+                System.out.println("Tours added: " + dayTours.size());
+            } else {
+                System.out.println("No tours found or array is empty");
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to fetch tours: " + e.getMessage());
+            e.printStackTrace();
         }
+
+        listViewDayTours.setItems(dayTours);
+        listViewDayTours.setCellFactory(param -> new ListCell<DayTour>() {
+            @Override
+            protected void updateItem(DayTour item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getName() + " - $" + item.getPrice() + " for " + item.getDuration() + " hours");
+                }
+            }
+        });
+    }
 
     /**
      * Sér um choice box sortingið
+     *
      * @param sortBy
      */
     private void sortTours(String sortBy) {
@@ -116,9 +120,10 @@ public class DayTourController {
 
     /**
      * Birtir valið Daytour úr listanum.
+     *
      * @param actionEvent
      */
-    public void openDayTourHandler (ActionEvent actionEvent){
+    public void openDayTourHandler(ActionEvent actionEvent) {
         DayTour selectedTour = listViewDayTours.getSelectionModel().getSelectedItem();
         if (selectedTour != null) {
             showTourDetails(selectedTour);
@@ -127,6 +132,7 @@ public class DayTourController {
 
     /**
      * Býr til glugga með völdu DayTour.
+     *
      * @param tour DayTour
      */
     private void showTourDetails(DayTour tour) {
@@ -151,9 +157,10 @@ public class DayTourController {
     /**
      * Leita takkinn
      * Tekur input úr searchField glugganum og leitar í gagnagrunni.
+     *
      * @param actionEvent ActionEvent
      */
-    public void onLeitaHandler (ActionEvent actionEvent){
+    public void onLeitaHandler(ActionEvent actionEvent) {
         String searchText = searchField.getText();
         loadDayTours(searchText);
     }
@@ -161,9 +168,10 @@ public class DayTourController {
     /**
      * Leitar í gagnagrunn af DayTours út frá search String
      * og setur í lista.
+     *
      * @param search String
      */
-    private void loadDayTours (String search){
+    private void loadDayTours(String search) {
         dayTours.clear();
         try {
             DayTour[] allDayTours = DatabaseDaytour.searchDayTour(search);
@@ -195,6 +203,7 @@ public class DayTourController {
     /**
      * Bóka takkar:
      * Opnar nýtt view fyrir bókanir.
+     *
      * @param actionEvent ActionEvent
      */
     public void onBokaClick(ActionEvent actionEvent) {
@@ -220,6 +229,7 @@ public class DayTourController {
 
     /**
      * Opnar nýjan Create DayTour glugga.
+     *
      * @param actionEvent
      */
     public void onCreateHandler(ActionEvent actionEvent) {
@@ -238,6 +248,7 @@ public class DayTourController {
         }
 
     }
+
     public void initData(User user) {
         this.user = user;
         userName.setText(user.getName());
@@ -249,10 +260,26 @@ public class DayTourController {
             int daytourID = selectedTour.getId();
             int userId = user.getId();
             addBooking(daytourID, userId);
-            System.out.println("Tókst!");
+            actionText.setText("Bókun staðfest.");
         } else {
-            System.out.println("No tour selected. Please select a tour to book.");
+            actionText.setText("Veldu dayTour til að bóka.");
+        }
+    }
+
+    /**
+     * Eyðir völdu DayTour úr lista.
+     * @param actionEvent ActionEvent
+     */
+    public void deleteButtonHandler(ActionEvent actionEvent) {
+        DayTour selectedTour = listViewDayTours.getSelectionModel().getSelectedItem();
+        if (selectedTour != null) {
+            int dayTourId = selectedTour.getId();
+            DatabaseDaytour.deleteDayTour(dayTourId);
+
+            listViewDayTours.getItems().remove(selectedTour);
+            actionText.setText("DayTour hefur verið eytt.");
+        } else {
+            actionText.setText("Veldu dayTour til að eyða.");
         }
     }
 }
-

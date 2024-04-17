@@ -182,6 +182,28 @@ public class DatabaseDaytour {
         }
     }
 
+    public static void deleteDayTour(int daytourID) {
+        try {
+            getConnection();
+            String sql = "DELETE FROM daytour WHERE id = ?;";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, daytourID);
+
+            // Execute the update
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("DayTour deleted successfully.");
+            } else {
+                System.out.println("No DayTour found with ID: " + daytourID);
+            }
+        } catch (SQLException e) {
+            System.err.println("SQL error during the delete operation: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.err.println("Database connection problem: " + e.getMessage());
+        }
+    }
+
     //Fá fylki af customerID(hjálpar aðferð)
     public static int[] getCustomers (int customerCNT, String customers) {
         int[] cust = new int[customerCNT];
