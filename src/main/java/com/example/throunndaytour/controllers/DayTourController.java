@@ -84,7 +84,8 @@ public class DayTourController {
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    setText(item.getName() + " - $" + item.getPrice() + " for " + item.getDuration() + " hours");
+                    setText(item.getName() + " - " + item.getPrice() + " ISK" + " for " + item.getDuration() + " hours - " + "Bokkings: " + item.getCustomerCNT());
+
                 }
             }
         });
@@ -92,7 +93,7 @@ public class DayTourController {
 
     /**
      * Sér um choice box sortingið
-     *
+     *      *
      * @param sortBy
      */
     private void sortTours(String sortBy) {
@@ -194,7 +195,7 @@ public class DayTourController {
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    setText(item.getName() + " - $" + item.getPrice() + " for " + item.getDuration() + " hours");
+                    setText(item.getName() + " - " + item.getPrice() + " ISK" + " for " + item.getDuration() + " hours - " + "Bokkings: " + item.getCustomerCNT());
                 }
             }
         });
@@ -260,9 +261,10 @@ public class DayTourController {
             int daytourID = selectedTour.getId();
             int userId = user.getId();
             addBooking(daytourID, userId);
-            actionText.setText("Bókun staðfest.");
+            actionText.setText("Reservation confirmed.");
+            loadDayTours("");
         } else {
-            actionText.setText("Veldu dayTour til að bóka.");
+            actionText.setText("Please select a day tour to reserve");
         }
     }
 
@@ -277,9 +279,9 @@ public class DayTourController {
             DatabaseDaytour.deleteDayTour(dayTourId);
 
             listViewDayTours.getItems().remove(selectedTour);
-            actionText.setText("DayTour hefur verið eytt.");
+            actionText.setText("Day tour has been deleted.");
         } else {
-            actionText.setText("Veldu dayTour til að eyða.");
+            actionText.setText("Please select a day tour to delete.");
         }
     }
 }

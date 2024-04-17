@@ -477,5 +477,4 @@ public class DatabaseDaytour {
             throw new RuntimeException(e);
         }
     }
-
 }
