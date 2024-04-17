@@ -12,8 +12,9 @@ public class DayTour {
     private int[] customers = {};
     private int reviewCNT;
     private int[] reviews = {};
+    private String description;
 
-    public DayTour(int id, String name, int price, int duration, int[] date, String location,int customerCNT,int[] customers,int reviewCNT,int[] reviews) {
+    public DayTour(int id, String name, int price, int duration, int[] date, String location,int customerCNT,int[] customers,int reviewCNT,int[] reviews,String description) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -24,6 +25,7 @@ public class DayTour {
         this.reviews = reviews;
         this.customerCNT = customerCNT;
         this.reviewCNT = reviewCNT;
+        this.description = description;
 
     }
 

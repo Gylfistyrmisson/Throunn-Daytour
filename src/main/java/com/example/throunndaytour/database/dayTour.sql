@@ -20,15 +20,16 @@ CREATE TABLE daytour (
     customerCNT INT,
     customerID VarChar(1000),
     reviewCNT INT,
-    reviewID VarChar(1000)
-
+    reviewID VarChar(1000),
+    description VarChar(1000)
 );
 
 CREATE TABLE review (
-    name VarChar(30),
-    description VarChar(200),
+    id int,
+    title VarChar(30),
+    text VarChar(200),
     rating INT,
-    id INT
+    username VarChar(30)
 );
 
 CREATE TABLE idGenerator (

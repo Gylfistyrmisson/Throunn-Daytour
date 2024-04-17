@@ -56,7 +56,7 @@ public class CreateTourController {
 
             if (date != null) {
                 int[] dateArray = {date.getDayOfMonth(), date.getMonthValue(), date.getYear()};
-                DayTour newTour = DatabaseDaytour.createDayTour(name, price, duration, dateArray, location);
+                DayTour newTour = DatabaseDaytour.createDayTour(name, price, duration, dateArray, location,"");
                 infoLabel.setText("Tókst að búa til Day tour.");
             } else {
                 infoLabel.setText("Vantar dagsetningu");
