@@ -9,13 +9,17 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" spacing="10" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.throunndaytour.vidmot.CreateTourController">
    <padding>
       <Insets bottom="10" left="10" right="10" top="10" />
    </padding>
-   <Text text="Búa til nýtt Day Tour" />
+   <Text fill="#4260c7" text="Create a new daytour">
+      <font>
+         <Font name="System Bold" size="18.0" />
+      </font></Text>
    <GridPane prefHeight="241.0" prefWidth="580.0">
      <columnConstraints>
        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -30,20 +34,38 @@
          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
      </rowConstraints>
       <children>
-         <Label text="Nafn: " />
+         <Label prefHeight="17.0" prefWidth="67.0" text="Nafn: " textFill="#4260c7">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font></Label>
          <TextField fx:id="priceField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-         <Label text="Lýsing" GridPane.rowIndex="1" />
+         <Label prefHeight="17.0" prefWidth="121.0" text="Lýsing" textFill="#4260c7" GridPane.rowIndex="1">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font></Label>
          <TextField fx:id="descriptionField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          <TextField fx:id="nameField" GridPane.columnIndex="1" />
-         <Label text="Verð: " GridPane.rowIndex="2" />
-         <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="75.0" text="Lengd (klst):" GridPane.rowIndex="3" />
+         <Label prefHeight="17.0" prefWidth="106.0" text="Verð: " textFill="#4260c7" GridPane.rowIndex="2">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font></Label>
+         <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="158.0" text="Lengd (klst):" textFill="#4260c7" GridPane.rowIndex="3">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font></Label>
          <TextField fx:id="durationField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-         <Label text="Dagsetning (DD/MM/YYYY):" GridPane.rowIndex="4" />
-         <Label text="Staðsetning:" GridPane.rowIndex="5" />
+         <Label prefHeight="17.0" prefWidth="190.0" text="Dagsetning (DD/MM/YYYY):" textFill="#4260c7" GridPane.rowIndex="4">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font></Label>
+         <Label prefHeight="17.0" prefWidth="117.0" text="Staðsetning:" textFill="#4260c7" GridPane.rowIndex="5">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font></Label>
          <TextField fx:id="locationField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       </children>
    </GridPane>
-   <Button onAction="#handleSubmit" text="Staðfesta" />
+   <Button defaultButton="true" onAction="#handleSubmit" text="Staðfesta" />
    <Label fx:id="infoLabel" prefHeight="17.0" prefWidth="174.0" />
 </VBox>
